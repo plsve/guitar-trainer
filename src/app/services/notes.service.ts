@@ -7,6 +7,10 @@ import { Tunings } from '../common/types/tunings.enum';
 })
 export class NotesService {
 
+  selectedNote;
+
+  neckFocused = false;
+
   private standardNotes = [
     ['E', 'A', 'D', 'G', 'B', 'E'],
     ['F', 'A#', 'D#', 'G#', 'C', 'F'],
@@ -26,32 +30,41 @@ export class NotesService {
   notes = [];
 
   private leftNeckOffset = 39;
-  private headstockOffset = 65;
+  headstockOffset = 65;
   leftNeckLayoutOffset = 200;
 
   constructor() {
-    this.initNotes();
+    this.initAllNotes();
   }
 
-  private initNotes() {
+  private initAllNotes() {
     for (let i = 0; i < this.standardNotes.length; i++) {
       this.standardNotes[i].forEach((value, index) => {
         this.notes.push({
           id: i + '-' + value,
           value: value,
+          inputValue: '',
           displayX: this.calcDisplayPosX(i, index),
           displayY: this.calcDisplayPosY(i),
+          revealed: false,
+          selected: false
+          
         })
       })
     }
   }
 
+  private getNoteColor(note){
+    
+  }
+
   private calcDisplayPosX(fret, noteIndex) {
     const offsetter= noteIndex - 3.25;
     const zeroFretWidth = 115;
-    const noteSpreadFormula = fret * fret * (1 - 0.9998) * zeroFretWidth * offsetter;
+    const noteSpreadFormula = fret * fret * (1 - 0.9997) * zeroFretWidth * offsetter;
     const fretNoteSpacing = 115 / 6 * noteIndex;
-    return this.leftNeckLayoutOffset + this.leftNeckOffset + noteSpreadFormula + fretNoteSpacing;
+    // const secondHalfMultiplier = fret > 6 ? 
+    return this.leftNeckOffset + noteSpreadFormula + fretNoteSpacing;
   }
 
   private calcDisplayPosY(fret) {
@@ -72,7 +85,7 @@ export class NotesService {
       case 12: { result += 846; break; }
       default: {}
     }
-    
+
   return result;
   }
 

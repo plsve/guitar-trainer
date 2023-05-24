@@ -1,12 +1,31 @@
 .w {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     position: absolute;
-    background-color: white;
+    // background-color: white;
     justify-content: center;
     align-items: center;
     text-align: center;
     border-radius: 9px;
-    border:1px solid black;
-    font-size: 14px;
+    // border:1px solid white;
+    // font-size: 15px;
+    // background: none;
+    // color: black;
+    font-weight: 600;
+    background-color:rgba(255, 255, 255, 0.65);
+    // opacity: 0.75;
+}
+
+.note {
+    color: black;
+
+}
+.note-part {
+    font-size: 16px;
+    position: absolute;
+}
+
+.sharp-flat-part {
+    font-size: 12px;
+    position: absolute;
 }

@@ -1,0 +1,14 @@
+.w {
+    width: 1920px;
+    height: 1939px;
+    background-color: rgb(70, 70, 75);
+}
+
+.right-panel {
+    border-left: 1px rgb(46, 46, 46) solid;
+    left: 190px;
+    top: 0;
+    width: calc(1920px - 190px);
+    height: 1170px;
+    position: absolute;
+}

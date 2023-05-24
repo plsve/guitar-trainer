@@ -7,22 +7,10 @@ selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'Guitar Trainer';
-  notes = [];
 
-  constructor(private notesService: NotesService){
 
-  }
-  ngOnInit(): void {
-    this.notes = this.notesService.notes.filter(e => !e.value.includes('#'));
-  }
-
-  getLayoutStyle(){
-    return {
-      'left': this.notesService.leftNeckLayoutOffset + 'px'
-    }
-  }
 
 
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GuitarNecks } from 'src/app/common/types/guitar-necks.enum';
+import { NotesService } from 'src/app/services/notes.service';
 
 @Component({
   selector: 'app-neck-layout',
@@ -14,10 +15,17 @@ export class NeckLayoutComponent implements OnInit {
   src;
 
 
-  constructor() { }
+  notes = [];
+
+  constructor(private notesService: NotesService){
+
+  }
+
 
   ngOnInit(): void {
     this.initBackgroundSrc();
+    // this.notes = this.notesService.notes;
+    this.notes = this.notesService.notes.filter(e => !e.value.includes('#'));
   }
 
   initBackgroundSrc() {
@@ -33,5 +41,16 @@ export class NeckLayoutComponent implements OnInit {
       'background-image': "url('" + this.src + "')"
     }
   }
+
+  neckMousedOver(){
+    this.notesService.neckFocused = true;
+    console.log('Neck focused');
+  }
+
+  keyUp(event){
+    console.log(event);
+      }
+    
+
 
 }

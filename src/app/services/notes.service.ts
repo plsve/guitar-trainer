@@ -8,8 +8,7 @@ import { Tunings } from '../common/types/tunings.enum';
 export class NotesService {
 
   selectedNote;
-
-  neckFocused = false;
+  neckFocused = true;
 
   private standardNotes = [
     ['E', 'A', 'D', 'G', 'B', 'E'],
@@ -28,6 +27,7 @@ export class NotesService {
   ]
 
   notes = [];
+  allNotes = [];
 
   private leftNeckOffset = 39;
   headstockOffset = 65;
@@ -40,23 +40,24 @@ export class NotesService {
   private initAllNotes() {
     for (let i = 0; i < this.standardNotes.length; i++) {
       this.standardNotes[i].forEach((value, index) => {
-        this.notes.push({
+        const previousNoteIndex = index == 0 ? null : index - 1 + i * 6;
+        const nextNoteIndex = index == this.standardNotes.length ? null : index + 1 + i * 6;
+        this.allNotes.push({
           id: i + '-' + value,
           value: value,
           inputValue: '',
           displayX: this.calcDisplayPosX(i, index),
           displayY: this.calcDisplayPosY(i),
           revealed: false,
-          selected: false
+          nextNoteIndex: nextNoteIndex,
+          previousNoteIndex: previousNoteIndex
           
         })
       })
     }
-  }
-
-  private getNoteColor(note){
     
   }
+
 
   private calcDisplayPosX(fret, noteIndex) {
     const offsetter= noteIndex - 3.25;

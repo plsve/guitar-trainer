@@ -8,6 +8,8 @@ import { NotesService } from 'src/app/services/notes.service';
 })
 export class MainLayoutComponent implements OnInit {
 
+  accidentals = false;
+
 
   constructor(private notesService: NotesService){
 
@@ -31,13 +33,34 @@ console.log(event);
   }
 
   keyPress(event: KeyboardEvent) {
-    console.log(event);
-    const pattern = /[0-9]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (!pattern.test(inputChar)) {
-        // invalid character, prevent input
-        event.preventDefault();
+    const key = event.key.toUpperCase();
+    const notePattern = /[A, B, C, D, E, F, G]/;
+    if(this.notesService.selectedNote.inputValue.length == 0){      
+      if (notePattern.test(key)) {
+        console.log('pattern ok');
+        
+        this.notesService.selectedNote.inputValue = key;
+        if(!this.accidentals){
+          console.log(this.notesService.selectedNote);
+          this.notesService.selectedNote = this.notesService.notes[this.notesService.notes.indexOf(this.notesService.selectedNote)+1];
+          // this.notesService.selectedNote = this.notesService.notes[this.notesService.selectedNote.nextNoteIndex]
+          
+        }
+      }
+    } else if (this.accidentals && this.notesService.selectedNote.inputValue.length == 1){
+      
+      if (key == 'S') {
+        this.notesService.selectedNote.inputValue += 'b';
+          
+      } else if (key == 'W' || key == '#') {
+        this.notesService.selectedNote.inputValue += '#';
+      }
     }
+
+    // event.preventDefault();
+        // invalid character, prevent input
+        // event.preventDefault();
+    
 }
 
 }

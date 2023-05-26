@@ -1,4 +1,7 @@
 <div class="c w" [ngStyle]="getStyles()" (mouseover)="onHover()">
+    <div *ngIf="!note.revealed" class="note">
+        {{note.inputValue}}
+    </div>
     <div *ngIf="note.revealed" class="note">
         {{note.value}}
     </div>

@@ -14,9 +14,6 @@ export class NeckLayoutComponent implements OnInit {
 
   src;
 
-
-  notes = [];
-
   constructor(private notesService: NotesService){
 
   }
@@ -24,9 +21,7 @@ export class NeckLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.initBackgroundSrc();
-    this.notesService.notes = this.notesService.allNotes.filter(e => !e.value.includes('#'));
-    this.notes = this.notesService.notes;
-    this.notesService.selectedNote = this.notes[0];
+  
   }
 
   initBackgroundSrc() {

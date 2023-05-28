@@ -1,10 +1,10 @@
 <div class="r w" (mouseover)="neckMousedOver()" (keyup)="keyUp($event)">
-    
+
     <div *ngIf="src" class="w-background" [ngStyle]="getBackgroundStyle()">
     </div>
 
     <div class="note-container" >
-        <!-- <app-neck-note *ngFor="let note of notes" [note]="note" ></app-neck-note> -->
+        <app-neck-note *ngFor="let note of notesService.allNeckNotes" [note]="note" ></app-neck-note>
     </div>
     
 </div>

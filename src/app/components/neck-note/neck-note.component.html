@@ -1,4 +1,7 @@
-<div class="c w" [ngStyle]="getStyles()" (mouseover)="onHover()">
+<div class="c w" [ngStyle]="getContainerStyles()" >
+    <div *ngIf="note.fretRect" class="fret-rect" [ngStyle]="getFretRectStyles()" (mouseover)="onHover()">
+    </div>
+
     <div *ngIf="!note.revealed" class="note">
         {{note.inputValue}}
     </div>

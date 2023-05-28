@@ -17,25 +17,38 @@ export class NeckNoteComponent implements OnInit {
     console.log(this.note);
   }
 
-  getStyles() {
+  getContainerStyles() {
     return {
       'left': Math.floor(this.note.displayX) + 'px',
       'top': this.note.displayY + 'px',
       'font-size': this.note.value.length == 2 ? '13px' : '15px',
       'line-height': this.note.value.length == 2 ? '13px' : '15px',
-      'background-color': this.note == this.notesService.selectedNote ? 'lightgreen' : ((this.note.inputValue != this.note.value && this.note.inputValue.length > 0) ? 'rgb(255, 150, 150)' : '')
+      // 'background-color': this.note == this.notesService.selectedNote ? 'rgba(255, 255, 255, 0.65)' : ''
+      'background-color': this.getBackgroundColor()
     }
   }
 
   getBackgroundColor(){
-    if(this.note.selected){
-      return 'lightgreen'
-    } else if (this.note.inputValue > 0 && this.note.inputValue != this.note.value ){
+    if(this.note == this.notesService.selectedNote){
+      return 'rgba(255, 255, 255, 0.95)'
+    }
+    if (this.note.valueRevealed && this.note.inputValue > 0 && this.note.inputValue != this.note.value ){
       return 'red'
-    } else {
-      return 'rgba(255, 255, 255, 0.65);'
+    } 
+    if (this.note.showCircle || this.note.inputValue.length > 0){
+      return 'rgba(255, 255, 255, 0.7)'
+    }
+    return ''
+  }
+
+  getFretRectStyles(){
+    return {
+      'width': this.note.fretRect.width,
+      'height': this.note.fretRect.height,
+      // 'bottom': '0px'
     }
   }
+
 
   onHover(){
     this.notesService.selectedNote = this.note;

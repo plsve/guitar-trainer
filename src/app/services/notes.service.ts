@@ -2,31 +2,19 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Tunings } from '../common/types/tunings.enum';
 import { Music } from '../common/types/utils/music.utils';
+import { Utils } from '../common/types/utils/utils';
+import { MajestyFretRects } from '../common/constants/majesty-hover-positions.const';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotesService {
+  allNeckNotesValues = [];
   allNeckNotes = [];
 
   selectedNote;
   neckFocused = true;
 
-  // private standardNotes = [
-  //   ['E', 'A', 'D', 'G', 'B', 'E'],
-  //   ['F', 'A#', 'D#', 'G#', 'C', 'F'],
-  //   ['F#', 'B', 'E', 'A', 'C#', 'F#'],
-  //   ['G', 'C', 'F', 'A#', 'D', 'G'],
-  //   ['G#', 'C#', 'F#', 'B', 'D#', 'G#'],
-  //   ['A', 'D', 'G', 'C', 'E', 'A'],
-  //   ['A#', 'D#', 'G#', 'C#', 'F', 'A#'],
-  //   ['B', 'E', 'A', 'D', 'F#', 'B'],
-  //   ['C', 'F', 'A#', 'D#', 'G', 'C'],
-  //   ['C#', 'F#', 'B', 'E', 'G#', 'C#'],
-  //   ['D', 'G', 'C', 'F', 'A', 'D'],
-  //   ['D#', 'G#', 'C#', 'F#', 'A#', 'D#'],
-  //   ['E', 'A', 'D', 'G', 'B', 'E'],
-  // ]
 
   notes = [];
   allNotes = [];
@@ -36,39 +24,50 @@ export class NotesService {
   leftNeckLayoutOffset = 200;
 
   constructor() {
-    this.initAllNeckNotes(['E4', 'A4', 'D4', 'G4', 'B4', 'E5'], 1, 12);
+    this.initAllNeckNotesValues(Tunings.STANDARD_6_STRING, 0, 12);
+    this.initAllNotes();
   }
 
-  private initAllNeckNotes(
+  private initAllNeckNotesValues(
     strings: string[],
     fromFret: number,
     toFret: number
   ) {
-    if (fromFret > toFret) {
-      console.error(
-        'Invalid fret range definition: ' +
-          ' from ' +
-          fromFret +
-          ' to ' +
-          toFret
-      );
-    }
-
     let stringNotes = [];
     strings.forEach((value, i) => {
       let oneStringNotes = [];
-      console.log('ha');
-
-      for (let j = 0; j <= toFret - fromFret; j++) {
-        console.log(Music.scrapOctave(value));
-
-        oneStringNotes.push(Music.add(Music.scrapOctave(value), j * 0.5));
+      for (let j = fromFret; j <= toFret; j++) {
+        oneStringNotes.push(Music.add(Music.scrapeOctave(value), j * 0.5));
       }
       stringNotes.push(oneStringNotes);
     });
 
-    this.allNeckNotes = stringNotes;
-    console.log(this.allNeckNotes);
+    this.allNeckNotesValues = Utils.swapMatrixElements(stringNotes);
+  }
+
+  private initAllNotes() {
+    for (let i = 0; i < this.allNeckNotesValues.length; i++) {
+      this.allNeckNotesValues[i].forEach((value, index) => {
+        this.allNeckNotes.push({
+          id: i + '-' + value,
+          value: value,
+          inputValue: '',
+          valueRevealed: false,
+          showCircle: true,
+          displayX: this.calcDisplayPosX(i, index),
+          displayY: this.calcDisplayPosY(i),
+          fretRect: this.getFretRect(i, index)
+          
+        })
+      })
+    }
+  }
+
+  private getFretRect(fret: number, note: number){
+    if(MajestyFretRects[fret]){
+      return MajestyFretRects[fret][note] ;
+    }
+    return null;
   }
 
   private calcDisplayPosX(fret, noteIndex) {
@@ -145,3 +144,7 @@ export class NotesService {
 function addscrapOctave(arg0: string): any {
   throw new Error('Function not implemented.');
 }
+function swapMatrixElements(matrix: number[][]) {
+  throw new Error('Function not implemented.');
+}
+

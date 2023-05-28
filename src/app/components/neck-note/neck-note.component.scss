@@ -12,9 +12,10 @@
     // background: none;
     // color: black;
     font-weight: 600;
-    background-color:rgba(255, 255, 255, 0.65);
+    // background-color:rgba(255, 255, 255, 0.65);
     // opacity: 0.75;
 }
+
 
 .note {
     color: black;
@@ -28,4 +29,11 @@
 .sharp-flat-part {
     font-size: 12px;
     position: absolute;
+}
+
+.fret-rect {
+    // background-color: white;
+    position: absolute;
+    bottom: 0px;
+    opacity: 0;
 }

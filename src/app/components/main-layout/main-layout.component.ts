@@ -8,7 +8,6 @@ import { NotesService } from 'src/app/services/notes.service';
 })
 export class MainLayoutComponent implements OnInit {
 
-  accidentals = false;
 
 
   constructor(private notesService: NotesService){
@@ -40,20 +39,18 @@ console.log(event);
         console.log('pattern ok');
         
         this.notesService.selectedNote.inputValue = key;
-        if(!this.accidentals){
-          console.log(this.notesService.selectedNote);
-          this.notesService.selectedNote = this.notesService.notes[this.notesService.notes.indexOf(this.notesService.selectedNote)+1];
-          // this.notesService.selectedNote = this.notesService.notes[this.notesService.selectedNote.nextNoteIndex]
-          
-        }
+        this.notesService.selectedNote = this.notesService.notes[this.notesService.notes.indexOf(this.notesService.selectedNote)+1];
       }
-    } else if (this.accidentals && this.notesService.selectedNote.inputValue.length == 1){
+    } else if (this.notesService.selectedNote.inputValue.length == 1){
       
       if (key == 'S') {
         this.notesService.selectedNote.inputValue += 'b';
           
       } else if (key == 'W' || key == '#') {
         this.notesService.selectedNote.inputValue += '#';
+      } else {
+        this.notesService.selectedNote.inputValue = key;
+        this.notesService.selectedNote = this.notesService.notes[this.notesService.notes.indexOf(this.notesService.selectedNote)+1];
       }
     }
 

@@ -14,7 +14,7 @@ export class NeckLayoutComponent implements OnInit {
 
   src;
 
-  constructor(private notesService: NotesService){
+  constructor(public notesService: NotesService){
 
   }
 

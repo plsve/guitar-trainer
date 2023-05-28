@@ -27,7 +27,7 @@ export const Music = {
     return this.NOTES[index];
   },
 
-  scrapOctave(note: string) {
+  scrapeOctave(note: string) {
     if (note.length == 3) {
       return note.slice(0, 2);
     } else if (note.length == 2 && note[1] != '#' && note[1] != 'b') {
@@ -51,4 +51,8 @@ export const Music = {
       return this.NOTES[this.NOTES_FLATS.indexOf(notes)];
     }
   },
+
+
+  
+
 };

@@ -1,4 +1,5 @@
 export const Music = {
+    NOTE_CLASSES: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
   NOTES: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
   NOTES_FLATS: [
     'C',

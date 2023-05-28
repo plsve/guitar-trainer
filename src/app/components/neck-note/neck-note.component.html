@@ -2,10 +2,10 @@
     <div *ngIf="note.fretRect" class="fret-rect" [ngStyle]="getFretRectStyles()" (mouseover)="onHover()">
     </div>
 
-    <div *ngIf="!note.revealed" class="note">
+    <div *ngIf="!note.valueRevealed" class="note">
         {{note.inputValue}}
     </div>
-    <div *ngIf="note.revealed" class="note">
+    <div *ngIf="note.valueRevealed" class="note">
         {{note.value}}
     </div>
     

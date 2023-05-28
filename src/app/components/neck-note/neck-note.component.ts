@@ -21,8 +21,8 @@ export class NeckNoteComponent implements OnInit {
     return {
       'left': Math.floor(this.note.displayX) + 'px',
       'top': this.note.displayY + 'px',
-      'font-size': this.note.value.length == 2 ? '13px' : '15px',
-      'line-height': this.note.value.length == 2 ? '13px' : '15px',
+      'font-size': this.note.inputValue.length == 2 ? '13px' : '15px',
+      'line-height': this.note.inputValue.length == 2 ? '13px' : '15px',
       // 'background-color': this.note == this.notesService.selectedNote ? 'rgba(255, 255, 255, 0.65)' : ''
       'background-color': this.getBackgroundColor()
     }
@@ -31,13 +31,13 @@ export class NeckNoteComponent implements OnInit {
   getBackgroundColor(){
     if(this.note == this.notesService.selectedNote){
       return 'rgba(255, 255, 255, 0.95)'
-    }
-    if (this.note.valueRevealed && this.note.inputValue > 0 && this.note.inputValue != this.note.value ){
-      return 'red'
-    } 
+    } else
+    if ( this.note.inputValue.length > 0 && this.note.inputValue != this.note.value ){
+      return 'rgb(235, 170, 170)'
+    } else
     if (this.note.showCircle || this.note.inputValue.length > 0){
-      return 'rgba(255, 255, 255, 0.7)'
-    }
+      return 'rgba(255, 255, 255, 0.65)'
+    } else
     return ''
   }
 

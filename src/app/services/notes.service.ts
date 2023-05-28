@@ -9,15 +9,15 @@ import { MajestyFretRects } from '../common/constants/majesty-hover-positions.co
   providedIn: 'root',
 })
 export class NotesService {
-  allNeckNotesValues = [];
-  allNeckNotes = [];
+  private notesValues = [];
+  notes = [];
 
   selectedNote;
   neckFocused = true;
 
 
-  notes = [];
-  allNotes = [];
+  // notes = [];
+  // allNotes = [];
 
   private leftNeckOffset = 39;
   headstockOffset = 65;
@@ -26,6 +26,9 @@ export class NotesService {
   constructor() {
     this.initAllNeckNotesValues(Tunings.STANDARD_6_STRING, 0, 12);
     this.initAllNotes();
+    this.notes = this.notes.filter(e => !e.value.includes('#'));
+    this.selectedNote = this.notes[0];
+    
   }
 
   private initAllNeckNotesValues(
@@ -42,18 +45,18 @@ export class NotesService {
       stringNotes.push(oneStringNotes);
     });
 
-    this.allNeckNotesValues = Utils.swapMatrixElements(stringNotes);
+    this.notesValues = Utils.swapMatrixElements(stringNotes);
   }
 
   private initAllNotes() {
-    for (let i = 0; i < this.allNeckNotesValues.length; i++) {
-      this.allNeckNotesValues[i].forEach((value, index) => {
-        this.allNeckNotes.push({
+    for (let i = 0; i < this.notesValues.length; i++) {
+      this.notesValues[i].forEach((value, index) => {
+        this.notes.push({
           id: i + '-' + value,
           value: value,
           inputValue: '',
           valueRevealed: false,
-          showCircle: true,
+          showCircle: false,
           displayX: this.calcDisplayPosX(i, index),
           displayY: this.calcDisplayPosY(i),
           fretRect: this.getFretRect(i, index)
@@ -141,10 +144,5 @@ export class NotesService {
     return result;
   }
 }
-function addscrapOctave(arg0: string): any {
-  throw new Error('Function not implemented.');
-}
-function swapMatrixElements(matrix: number[][]) {
-  throw new Error('Function not implemented.');
-}
+
 
